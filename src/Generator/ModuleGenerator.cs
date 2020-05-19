@@ -74,20 +74,18 @@ namespace Generator
                         .SelectMany(al => al.Attributes)
                         .Single(at => at.Name.ToString() == "Command")
                         .ArgumentList?.Arguments
-                        .FirstOrDefault()?.Expression.ToString();
+                        .FirstOrDefault()?.Expression;
                     if (name != null)
                         writer.WriteLine($"Name = {name},");
 
-                    var parameters = m.ParameterList.Parameters
-                        //.Where(p => p.Type != null)
-                        .Select(p => $"typeof({p.Type!})");
+                    var parameters = m.ParameterList.Parameters;
                     if (parameters.Any())
                     {
                         writer.WriteLine($"ParameterTypes = new Type[]");
                         writer.WriteWrappedIndented(("{", "},"), parameters, (writer, ps) =>
                         {
                             foreach (var param in ps)
-                                writer.WriteLine($"{param},");
+                                writer.WriteLine($"typeof({param.Type!}),");
                         });
                     }
                 });

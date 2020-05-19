@@ -27,7 +27,7 @@ namespace Generator.Tests
         private static MetadataReference CreateReferenceFromFile(string path)
             => MetadataReference.CreateFromFile(path);
 
-        #region  Get Diagnostics
+        #region Get Generated Sources
         private static Task<IReadOnlyCollection<SyntaxTree>> GetGeneratedSourcesAsync(
             string[] sources, string language, GeneratorDriver driver)
         {
